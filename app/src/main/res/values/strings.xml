@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">HelpingHands</string>
+    <string name="app_moto">Lets Donate !</string>
+    <string name="title_activity_app__drawer">App_Drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_login">Login</string>
+    <string name="menu_register">Register</string>
+    <string name="menu_aboutus">About Us</string>
+    <string name="about">About</string>
+    <string name="menu_contact">Contact Us</string>
+    <string name="getintouch">Get In Touch</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo">TODO</string>
+    <string name="textview">TextView</string>
+    <string name="message">Message</string>
+    <string name="enter_your_name">Enter Your Name</string>
+    <string name="email">Email</string>
+    <string name="send">SEND</string>
+</resources>
