@@ -46,13 +46,13 @@ public class AboutUs extends Fragment {
         "Get some amazing gifts from our brand partners" +"\n\n"+
         "… And much more !");
 
-        abouttext3.setTypeface(null, Typeface.BOLD);
+//        abouttext3.setTypeface(null, Typeface.BOLD);
         abouttext3.setTextColor(Color.WHITE);
-        abouttext4.setTypeface(null, Typeface.BOLD);
+//        abouttext4.setTypeface(null, Typeface.BOLD);
         abouttext4.setTextColor(Color.RED);
-        abouttext5.setTypeface(null, Typeface.BOLD);
+//        abouttext5.setTypeface(null, Typeface.BOLD);
         abouttext5.setTextColor(Color.WHITE);
-        abouttext6.setTypeface(null, Typeface.BOLD);
+//        abouttext6.setTypeface(null, Typeface.BOLD);
         abouttext6.setTextColor(Color.RED);
 
         return inf;

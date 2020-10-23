@@ -18,144 +18,80 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04000002" />
+        app:layout_constraintVertical_bias="0.042" />
 
-    <EditText
-        android:id="@+id/contact_message"
-        android:layout_width="331dp"
-        android:layout_height="146dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="@string/message"
-        android:importantForAutofill="no"
-        android:inputType="textMultiLine"
+    <LinearLayout
+        android:id="@+id/contactus_linearlayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="120dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contact_textview1"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintVertical_bias="0.254">
 
-    <EditText
-        android:id="@+id/contact_name"
-        android:layout_width="331dp"
-        android:layout_height="48dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/enter_your_name"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_message"
-        app:layout_constraintVertical_bias="0.045" />
+        <EditText
+            android:id="@+id/contact_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/message"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:lines="10" />
 
-    <EditText
-        android:id="@+id/contact_email"
-        android:layout_width="331dp"
-        android:layout_height="48dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_name"
-        app:layout_constraintVertical_bias="0.053" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="13dp" />
 
-    <Button
-        android:id="@+id/contact_sendbtn"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="125dp"
-        android:layout_height="54dp"
-        android:alpha="0.85"
-        android:background="@color/pink_v1"
-        android:text="@string/send"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_email"
-        app:layout_constraintVertical_bias="0.148" />
+        <EditText
+            android:id="@+id/contact_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/enter_your_name"
+            android:inputType="textPersonName" />
 
-    <ImageView
-        android:id="@+id/contact_homeimg"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/ic_home_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.287"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_sendbtn"
-        app:layout_constraintVertical_bias="0.202" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="13dp" />
 
-    <TextView
-        android:id="@+id/contact_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textview"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toEndOf="@+id/contact_homeimg"
-        app:layout_constraintTop_toBottomOf="@+id/contact_sendbtn"
-        app:layout_constraintVertical_bias="0.22000003" />
+        <EditText
+            android:id="@+id/contact_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
 
-    <ImageView
-        android:id="@+id/contact_mobileimg"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/ic_mobile_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.287"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_sendbtn"
-        app:layout_constraintVertical_bias="0.456" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="13dp" />
 
-    <TextView
-        android:id="@+id/contact_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textview"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toEndOf="@+id/contact_mobileimg"
-        app:layout_constraintTop_toBottomOf="@+id/contact_sendbtn"
-        app:layout_constraintVertical_bias="0.45999998" />
-
-    <ImageView
-        android:id="@+id/contact_mainimg"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/ic_mail_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.287"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact_sendbtn"
-        app:layout_constraintVertical_bias="0.705" />
-
-    <TextView
-        android:id="@+id/contact_mail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textview"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.104"
-        app:layout_constraintStart_toEndOf="@+id/contact_mainimg"
-        app:layout_constraintTop_toBottomOf="@+id/contact_sendbtn"
-        app:layout_constraintVertical_bias="0.695" />
+        <Button
+            android:id="@+id/contact_sendbtn"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="125dp"
+            android:layout_height="54dp"
+            android:alpha="0.85"
+            android:background="@color/pink_v1"
+            android:text="@string/send"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -163,5 +99,90 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="165dp" />
+
+    <TableLayout
+        android:id="@+id/contact_tablelayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactus_linearlayout"
+        app:layout_constraintVertical_bias="0.518">
+
+        <TableRow
+            android:id="@+id/row1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp">
+
+            <ImageView
+                android:id="@+id/contact_homeimg"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_home_gray" />
+
+            <Space
+                android:layout_width="29dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/contact_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textview" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp">
+
+            <ImageView
+                android:id="@+id/contact_mobileimg"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_mobile_gray" />
+
+            <Space
+                android:layout_width="29dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/contact_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textview" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/contact_mainimg"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_mail_gray" />
+
+            <Space
+                android:layout_width="29dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/contact_mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textview" />
+        </TableRow>
+
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
