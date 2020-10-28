@@ -10,9 +10,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.helpinghands.R;
+
 public class MyAdapter extends FragmentStateAdapter {
 
-    String[] titles = new String[]{"First","Second","Third"};
+    int[] titles = new int[]{R.drawable.ic_one,R.drawable.ic_two,R.drawable.ic_three};
 
     public MyAdapter(@NonNull RegisterFragment fragmentActivity) {
         super(fragmentActivity);

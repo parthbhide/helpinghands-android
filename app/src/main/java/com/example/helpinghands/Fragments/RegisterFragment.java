@@ -67,13 +67,17 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         View inf =  inflater.inflate(R.layout.fragment_register, container, false);
 
-        String[] titles = new String[]{"First","Second","Third"};
+        int[] titles = new int[]{R.drawable.ic_one,R.drawable.ic_two,R.drawable.ic_three};
+
 
         TabLayout tabLayout;
         ViewPager2 viewPager;
 
         tabLayout = inf.findViewById(R.id.tabLayout);
         viewPager = inf.findViewById(R.id.viewpager);
+
+
+
 
 //        tabLayout.addTab(tabLayout.newTab().setText("First"));
 //        tabLayout.addTab(tabLayout.newTab().setText("Second"));
@@ -84,7 +88,7 @@ public class RegisterFragment extends Fragment {
 
         viewPager.setAdapter(new MyAdapter(this));
 
-        new TabLayoutMediator(tabLayout,viewPager,((tab, position) -> tab.setText(titles[position]))).attach();
+        new TabLayoutMediator(tabLayout,viewPager,((tab, position) -> tab.setIcon(titles[position]))).attach();
 
 
 

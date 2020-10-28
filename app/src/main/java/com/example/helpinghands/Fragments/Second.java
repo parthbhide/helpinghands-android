@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.helpinghands.R;
 
@@ -25,6 +27,7 @@ public class Second extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    View inf;
 
     public Second() {
         // Required empty public constructor
@@ -61,6 +64,18 @@ public class Second extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second, container, false);
+        inf =  inflater.inflate(R.layout.fragment_second, container, false);
+
+        First f = new First();
+        Bundle bundle = f.getArguments();
+
+        if(bundle != null)
+        {
+            String strtext = bundle.getString("edttext");
+            Toast.makeText(getActivity(),strtext,Toast.LENGTH_SHORT).show();
+        }
+
+        return inf;
     }
+
 }
