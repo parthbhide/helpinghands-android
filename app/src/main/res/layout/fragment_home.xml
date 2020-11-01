@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Fragments.home.HomeFragment">
 
     <TextView
@@ -50,7 +51,7 @@
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:windowBackground"
+            android:background="@color/white"
             android:elevation="6dp"
             android:foreground="?selectableItemBackground"
             android:gravity="center"
@@ -96,7 +97,8 @@
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:windowBackground"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
             android:elevation="6dp"
             android:foreground="?selectableItemBackground"
             android:gravity="center"
@@ -127,26 +129,28 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll1"
         android:layout_width="wrap_content"
         android:layout_height="58dp"
         android:background="?android:windowBackground"
-        android:elevation="6dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintVertical_bias="0.17000002">
 
         <ImageView
-            android:id="@+id/expand_button"
+            android:id="@+id/expand_button1"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="?selectableItemBackgroundBorderless"
+            android:layout_height="58dp"
+            android:background="@color/white"
+            android:contentDescription="TODO"
             android:scaleType="center"
-            android:src="@drawable/cloths" />
+            android:src="@drawable/sch_icn" />
 
         <net.cachapa.expandablelayout.ExpandableLayout
-            android:id="@+id/expandable_layout"
+            android:id="@+id/expandable_layout1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -156,12 +160,12 @@
             app:el_expanded="false">
 
             <TextView
+                android:id="@+id/exptxt1"
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#00b300"
+                android:background="@color/pink_v1"
                 android:gravity="center_vertical"
-                android:lines="1"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:text="Expanded Content"
@@ -170,6 +174,124 @@
         </net.cachapa.expandablelayout.ExpandableLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:background="?android:windowBackground"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll1"
+        app:layout_constraintVertical_bias="0.050000012">
+
+        <ImageView
+            android:id="@+id/expand_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:scaleType="center"
+            android:src="@drawable/del_icn" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/expandable_layout2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00f"
+            android:orientation="horizontal"
+            app:el_duration="1000"
+            app:el_expanded="false">
+
+            <TextView
+                android:id="@+id/exptxt2"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/pink_v1"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Expanded Content"
+                android:textColor="#fff" />
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll3"
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:background="?android:windowBackground"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll2"
+        app:layout_constraintVertical_bias="0.050000012">
+
+        <ImageView
+            android:id="@+id/expand_button3"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:scaleType="center"
+            android:src="@drawable/idea_ich" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/expandable_layout3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00f"
+            android:orientation="horizontal"
+            app:el_duration="1000"
+            app:el_expanded="false">
+
+            <TextView
+                android:id="@+id/exptxt3"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/pink_v1"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Expanded Content"
+                android:textColor="#fff" />
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="3dp"
+        android:text="@string/copyright"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.1"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
