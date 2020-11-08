@@ -5,8 +5,19 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".Fragments.LoginFragment" >
+    tools:context=".Fragments.LoginFragment">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.25"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg" />
 
     <TextView
         android:id="@+id/first_textview2"
@@ -37,21 +48,21 @@
         app:layout_constraintVertical_bias="0.3">
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:ems="10"
-            android:hint="@string/username"
-            android:inputType="textPersonName"
-            android:padding="10dp"
-            android:autofillHints="" />
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:padding="10dp" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="17dp" />
 
         <EditText
-            android:id="@+id/loginpassword"
+            android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
@@ -88,7 +99,7 @@
             android:layout_height="17dp" />
 
         <Button
-            android:id="@+id/loginbtn"
+            android:id="@+id/login_btn"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="54dp"
@@ -101,4 +112,17 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="3dp"
+        android:text="@string/copyright"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97" />
 </androidx.constraintlayout.widget.ConstraintLayout>

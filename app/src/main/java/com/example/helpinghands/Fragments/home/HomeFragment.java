@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.helpinghands.R;
@@ -57,6 +58,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Expa
         TextView ddtxt = (TextView) root.findViewById(R.id.donation_date_text);
         TextView cdtxt = (TextView) root.findViewById(R.id.collection_drive_text);
 
+        ConstraintLayout hcl = root.findViewById(R.id.home_cl);
+
         ddbtn.setText("Upcoming Donation Drive Dates");
         cdbtn.setText("Upcoming Collection Drive Dates");
 
@@ -65,7 +68,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Expa
 
         root.findViewById(R.id.donation_date_btn).setOnClickListener(this);
         root.findViewById(R.id.collection_drive_date).setOnClickListener(this);
-
+        root.findViewById(R.id.home_cl).setOnClickListener(this);
 
         expandableLayout = root.findViewById(R.id.expandable_layout1);
         expandButton = root.findViewById(R.id.expand_button1);
@@ -107,7 +110,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Expa
     @Override
     public void onClick(View view) {
 
-       if(view.getId() == R.id.expand_button1 || view.getId() == R.id.expand_button2 || view.getId() == R.id.expand_button3)
+        if(view.getId() == R.id.home_cl)
+        {
+            if(expandableLayout.isExpanded())
+                expandableLayout.toggle();
+            if(expandableLayout2.isExpanded())
+                expandableLayout2.toggle();
+            if(expandableLayout3.isExpanded())
+                expandableLayout3.toggle();
+
+            if(expandableLayout0.isExpanded())
+                expandableLayout0.collapse();
+            if(expandableLayout1.isExpanded())
+                expandableLayout1.collapse();
+        }
+
+       else if(view.getId() == R.id.expand_button1 || view.getId() == R.id.expand_button2 || view.getId() == R.id.expand_button3)
        {
            if(expandableLayout0.isExpanded())
                expandableLayout0.collapse();

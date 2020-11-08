@@ -5,30 +5,391 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     tools:context=".Fragments.RegisterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.322"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.001"
-        app:tabIndicatorColor="@color/pink_v1"
-        app:tabSelectedTextColor="@color/pink_v2" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewpager"
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:alpha="0.2"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
+
+    <TextView
+        android:id="@+id/reg_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textColor="@color/pink_v1"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.035" />
+
+    <LinearLayout
+        android:id="@+id/rll1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16000003"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/user_type"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/todo"
+            android:textColor="@color/black" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/register_expand1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:el_duration="500"
+            app:el_expanded="false">
+
+            <RadioGroup
+                android:id="@+id/radiobtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/first_textview1"
+                app:layout_constraintVertical_bias="0.100000024"
+                >
+
+                <RadioButton
+                    android:id="@+id/isdonor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Donor" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp" />
+
+                <RadioButton
+                    android:id="@+id/isreceiver"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Receiver" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp" />
+
+                <RadioButton
+                    android:id="@+id/isvolunteer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Volunteer" />
+
+            </RadioGroup>
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rll2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rll1"
+        app:layout_constraintVertical_bias="0.050000012"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/personal_details"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/todo"
+            android:textColor="@color/black" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/register_expand2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:el_duration="500"
+            app:el_expanded="false">
+
+            <LinearLayout
+                android:id="@+id/xll1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiobtn"
+                app:layout_constraintVertical_bias="0.19999999">
+
+                <EditText
+                    android:id="@+id/regnum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Registration Number"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+                    android:visibility="invisible"
+                    tools:visibility="visible" />
+
+                <Space
+                    android:id="@+id/sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp"
+                    android:visibility="invisible"
+                    tools:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="First Name"
+                    android:inputType="textPersonName"
+                    android:padding="10dp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp" />
+
+                <EditText
+                    android:id="@+id/lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Last Name"
+                    android:inputType="textPersonName"
+                    android:padding="10dp" />
+
+            </LinearLayout>
+
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rll3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rll2"
+        app:layout_constraintVertical_bias="0.050000012"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/contact_details"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/todo"
+            android:textColor="@color/black" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/register_expand3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:el_duration="500"
+            app:el_expanded="false">
+
+            <LinearLayout
+                android:id="@+id/xll2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/second_textview"
+                app:layout_constraintVertical_bias="0.19999999">
+
+                <EditText
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/address"
+                    android:inputType="textPostalAddress" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp" />
+
+                <EditText
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/mobile_number"
+                    android:inputType="phone" />
+
+            </LinearLayout>
+
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rll4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rll3"
+        app:layout_constraintVertical_bias="0.050000012"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/user_id_pass"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/todo"
+            android:textColor="@color/black" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/register_expand4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:el_duration="500"
+            app:el_expanded="false">
+
+
+            <LinearLayout
+                android:id="@+id/xll3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintVertical_bias="0.19999999">
+
+                <EditText
+                    android:id="@+id/user_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp" />
+
+                <EditText
+                    android:id="@+id/user_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp" />
+
+                <EditText
+                    android:id="@+id/conf_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/re_enter_password"
+                    android:inputType="textPassword" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp" />
+
+                <Button
+                    android:id="@+id/reg_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/pink_v1"
+                    android:text="@string/register" />
+            </LinearLayout>
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="3dp"
+        android:text="@string/copyright"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

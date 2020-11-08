@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="donor_logoutbtn" type="id" />
+    <item name="donor_toolbar" type="id" />
+</resources>

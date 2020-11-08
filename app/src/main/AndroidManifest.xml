@@ -11,10 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HelpingHands"
         tools:replace="android:icon">
+        <activity android:name=".Activity.VolunteerHome"></activity>
+        <activity android:name=".Activity.ReceiverHome" />
         <activity
             android:name=".Activity.DonorHome"
             android:label="@string/title_activity_donor_home"
-            android:theme="@style/Theme.HelpingHands.NoActionBar"></activity>
+            android:theme="@style/Theme.HelpingHands.NoActionBar" />
         <activity
             android:name=".Activity.App_Drawer"
             android:label="@string/title_activity_app__drawer"
