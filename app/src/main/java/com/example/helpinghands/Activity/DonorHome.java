@@ -1,12 +1,18 @@
 package com.example.helpinghands.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.example.helpinghands.R;
-import com.example.helpinghands.Users;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,16 +31,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DonorHome extends AppCompatActivity implements View.OnClickListener, ExpandableLayout.OnExpansionUpdateListener{
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mRootRef;
+
     private String name;
     private Integer cloth_qty;
     private Integer footwear_qty;
@@ -46,6 +55,8 @@ public class DonorHome extends AppCompatActivity implements View.OnClickListener
     private ExpandableLayout expandableLayout4;
     private Button registerForCollectionDrive;
 
+    ProgressDialog pd;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +67,8 @@ public class DonorHome extends AppCompatActivity implements View.OnClickListener
 
         //GETTING USER DETAILS FORM FIREBASE
         mAuth = FirebaseAuth.getInstance();
+        mRootRef = FirebaseDatabase.getInstance().getReference();
+        pd = new ProgressDialog(this);
 
         DatabaseReference user_reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -156,9 +169,11 @@ public class DonorHome extends AppCompatActivity implements View.OnClickListener
         expandableLayout3.setOnExpansionUpdateListener((ExpandableLayout.OnExpansionUpdateListener) this);
         expandableLayout4.setOnExpansionUpdateListener((ExpandableLayout.OnExpansionUpdateListener) this);
 
-        ImageView lgbtn = findViewById(R.id.donor_logoutbtn);
-
         //END OF SETTING UP UI ELEMENTS FOR DONOR LAYOUT
+
+        //SETTING UP BUTTONS
+
+        ImageView lgbtn = findViewById(R.id.donor_logoutbtn);
 
         lgbtn.setOnClickListener(
                 new View.OnClickListener() {
@@ -172,6 +187,115 @@ public class DonorHome extends AppCompatActivity implements View.OnClickListener
                     }
                 }
         );
+
+
+        Button donor_reg = findViewById(R.id.reg_for_cd);
+
+        donor_reg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                pd.setMessage("Please wait while we register you for a collection drive;");
+                pd.show();
+
+                String userEnteredClothsQty = ((TextView) findViewById(R.id.user_cloths_qty)).getText().toString();
+                String userEnteredClothsDesc = ((TextView) findViewById(R.id.user_cloths_desc)).getText().toString();
+                String userEnteredFootwearQty = ((TextView) findViewById(R.id.user_footwear_qty)).getText().toString();
+                String userEnteredFootwearDesc = ((TextView) findViewById(R.id.user_footwear_desc)).getText().toString();
+                String userEnteredStationaryQty = ((TextView) findViewById(R.id.user_stationary_qty)).getText().toString();
+                String userEnteredStationaryDesc = ((TextView) findViewById(R.id.user_stationary_desc)).getText().toString();
+                RadioGroup radioGroup = findViewById(R.id.radio_collection_drive_date);
+
+                if(userEnteredClothsQty.isEmpty() || userEnteredFootwearQty.isEmpty() || userEnteredStationaryQty.isEmpty())
+                {
+                    pd.dismiss();
+                    new AlertDialog.Builder(DonorHome.this)
+                            .setTitle("Quantity can't be empty !")
+                            .setMessage("Quantity can't be empty, enter zero (0) instead !")
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                }
+//                else if(Integer.valueOf(userEnteredClothsQty) > cloth_qty || Integer.valueOf(userEnteredFootwearQty) > footwear_qty ||
+//                        Integer.valueOf(userEnteredStationaryQty) > stationary_qty)
+//                {
+//                    pd.dismiss();
+//                    new AlertDialog.Builder(DonorHome.this)
+//                            .setTitle("Invalid Quantity !")
+//                            .setMessage("Quantity can't be greater than available quantity !")
+//                            // Specifying a listener allows you to take an action before dismissing the dialog.
+//                            // The dialog is automatically dismissed when a dialog button is clicked.
+//                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                }
+//                            }).setIcon(android.R.drawable.ic_dialog_alert).show();
+//                }
+
+                else if(radioGroup.getCheckedRadioButtonId() != R.id.date1 && radioGroup.getCheckedRadioButtonId() != R.id.date2  &&
+                        radioGroup.getCheckedRadioButtonId() != R.id.date3 )
+                {
+                    pd.dismiss();
+                    new AlertDialog.Builder(DonorHome.this)
+                            .setTitle("Invalid Date !")
+                            .setMessage("Please select a valid date to register !")
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                }
+                else
+                {
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("clothsqty",Integer.valueOf(userEnteredClothsQty));
+                    map.put("clothsdesc",userEnteredClothsDesc);
+                    map.put("footwearqty",Integer.valueOf(userEnteredFootwearQty));
+                    map.put("footweardesc",userEnteredFootwearDesc);
+                    map.put("stationaryqty",Integer.valueOf(userEnteredStationaryQty));
+                    map.put("stationarydisc",userEnteredStationaryDesc);
+                    map.put("userid",mAuth.getCurrentUser().getUid());
+                    map.put("date", ((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString());
+
+                    String val = mAuth.getCurrentUser().getUid() +":-:"+ ((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
+
+                    mRootRef.child("DonatesItemIn").child(val).setValue(map).addOnCompleteListener(
+                            new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    pd.dismiss();
+                                   if(task.isSuccessful())
+                                   {
+                                       Toast.makeText(DonorHome.this,"Registered to Collection Drive !",Toast.LENGTH_SHORT).show();
+                                       registerForCollectionDrive.setEnabled(false);
+                                       registerForCollectionDrive.setBackgroundColor(Color.GRAY);
+                                   }
+
+                                }
+                            }
+                    ).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            pd.dismiss();
+                            Snackbar.make(view,e.getMessage(),Snackbar.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(),e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                }
+
+
+
+            }
+        });
+
+        //END OF SETTING UP BUTTONS
 
 
     }

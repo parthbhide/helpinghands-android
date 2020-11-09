@@ -68,8 +68,7 @@
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/first_textview1"
-                    app:layout_constraintVertical_bias="0.100000024"
-                    >
+                    app:layout_constraintVertical_bias="0.100000024">
 
                     <RadioButton
                         android:id="@+id/date7"
@@ -110,6 +109,33 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout81"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/volunteer_linearLayout1"
+        app:layout_constraintVertical_bias="0.050000012">
+
+        <Button
+            android:id="@+id/volunteer_reg_cd"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.85"
+            android:background="@color/pink_v1"
+            android:padding="10dp"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/volunteer_linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -117,8 +143,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/volunteer_linearLayout1"
-        app:layout_constraintVertical_bias="0.050000012"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout81"
+        app:layout_constraintVertical_bias="0.14999998"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -157,8 +183,7 @@
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/first_textview1"
-                    app:layout_constraintVertical_bias="0.100000024"
-                    >
+                    app:layout_constraintVertical_bias="0.100000024">
 
                     <RadioButton
                         android:id="@+id/date10"
@@ -208,10 +233,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/volunteer_linearLayout2"
-        app:layout_constraintVertical_bias="0.35000002">
+        app:layout_constraintVertical_bias="0.050000012">
 
         <Button
-            android:id="@+id/volunteer_reg_d"
+            android:id="@+id/volunteer_reg_dd"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

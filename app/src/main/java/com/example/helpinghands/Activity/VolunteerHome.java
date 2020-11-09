@@ -5,16 +5,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.helpinghands.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,14 +34,21 @@ import com.google.firebase.database.ValueEventListener;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import java.util.HashMap;
+
 public class VolunteerHome extends AppCompatActivity implements View.OnClickListener, ExpandableLayout.OnExpansionUpdateListener{
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mRootRef;
+
     private String name;
 
     private ExpandableLayout expandableLayout1;
     private ExpandableLayout expandableLayout2;
-    private Button registerForDrive;
+    private Button volunteerDonationDriveReg;
+    private Button volunteerCollectionDriveReg;
+
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +59,8 @@ public class VolunteerHome extends AppCompatActivity implements View.OnClickList
 
         //GETTING USER DETAILS FORM FIREBASE
         mAuth = FirebaseAuth.getInstance();
+        mRootRef = FirebaseDatabase.getInstance().getReference();
+        pd = new ProgressDialog(this);
 
         DatabaseReference user_reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -116,11 +134,13 @@ public class VolunteerHome extends AppCompatActivity implements View.OnClickList
         TextView collectionDriveDates = (TextView) findViewById(R.id.volunteer_collection_drive_date);
         TextView donationDriveDates = (TextView) findViewById(R.id.volunteer_donation_drive_date);
         ConstraintLayout vcl = findViewById(R.id.volunteer_cl);
-        registerForDrive = findViewById(R.id.volunteer_reg_d);
+        volunteerCollectionDriveReg = findViewById(R.id.volunteer_reg_cd);
+        volunteerDonationDriveReg = findViewById(R.id.volunteer_reg_dd);
 
         collectionDriveDates.setText("Select date to register in collection drive");
         donationDriveDates.setText("Select date to register in donation drive");
-        registerForDrive.setText("Register");
+        volunteerDonationDriveReg.setText("Register for Donation Drive");
+        volunteerCollectionDriveReg.setText("Register for Collection Drive");
 
         findViewById(R.id.volunteer_collection_drive_date).setOnClickListener((View.OnClickListener) this);
         findViewById(R.id.volunteer_donation_drive_date).setOnClickListener((View.OnClickListener) this);
@@ -129,8 +149,11 @@ public class VolunteerHome extends AppCompatActivity implements View.OnClickList
         expandableLayout1.setOnExpansionUpdateListener((ExpandableLayout.OnExpansionUpdateListener) this);
         expandableLayout2.setOnExpansionUpdateListener((ExpandableLayout.OnExpansionUpdateListener) this);
 
-        ImageView lgbtn = findViewById(R.id.volunteer_logoutbtn);
         //END OF SETTING UP UI ELEMENTS FOR VOLUNTEER LAYOUT
+
+        //SETTING UP BUTTONS
+
+        ImageView lgbtn = findViewById(R.id.volunteer_logoutbtn);
 
         lgbtn.setOnClickListener(
                 new View.OnClickListener() {
@@ -144,6 +167,135 @@ public class VolunteerHome extends AppCompatActivity implements View.OnClickList
                     }
                 }
         );
+
+
+
+        volunteerCollectionDriveReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+
+                pd.setMessage("Please wait while we register you for a drive;");
+                pd.show();
+
+                RadioGroup radioGroup1 = findViewById(R.id.volunteer_radio_collection_drive_date);
+
+                if(radioGroup1.getCheckedRadioButtonId() != R.id.date7 && radioGroup1.getCheckedRadioButtonId() != R.id.date8  &&
+                        radioGroup1.getCheckedRadioButtonId() != R.id.date9)
+                {
+                    pd.dismiss();
+                    new AlertDialog.Builder(VolunteerHome.this)
+                            .setTitle("Invalid Date !")
+                            .setMessage("Please select a valid date to register !")
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                }
+                else
+                {
+
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("userid", mAuth.getCurrentUser().getUid());
+                        map.put("date", ((RadioButton) findViewById(radioGroup1.getCheckedRadioButtonId())).getText().toString());
+                        String val = mAuth.getCurrentUser().getUid() +":-:"+ ((RadioButton) findViewById(radioGroup1.getCheckedRadioButtonId())).getText().toString();
+
+                        mRootRef.child("CollectedBy").child(val).setValue(map).addOnCompleteListener(
+                                new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+
+                                        if(task.isSuccessful())
+                                        {
+                                            pd.dismiss();
+                                            Toast.makeText(VolunteerHome.this,"Registered to a Drive !",Toast.LENGTH_SHORT).show();
+                                            volunteerCollectionDriveReg.setEnabled(false);
+                                            volunteerCollectionDriveReg.setBackgroundColor(Color.GRAY);
+
+                                        }
+
+                                    }
+                                }
+                        ).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                                pd.dismiss();
+                                Snackbar.make(view1,e.getMessage(),Snackbar.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(),e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+
+                }
+
+            }
+        });
+
+        volunteerDonationDriveReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                pd.setMessage("Please wait while we register you for a drive;");
+                pd.show();
+
+                RadioGroup radioGroup2 = findViewById(R.id.volunteer_radio_donation_drive_date);
+                if(radioGroup2.getCheckedRadioButtonId() != R.id.date10 && radioGroup2.getCheckedRadioButtonId() != R.id.date11  &&
+                        radioGroup2.getCheckedRadioButtonId() != R.id.date12)
+                {
+                    pd.dismiss();
+                    new AlertDialog.Builder(VolunteerHome.this)
+                            .setTitle("Invalid Date !")
+                            .setMessage("Please select a valid date to register !")
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                }
+                else {
+
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("userid", mAuth.getCurrentUser().getUid());
+                    map.put("date", ((RadioButton) findViewById(radioGroup2.getCheckedRadioButtonId())).getText().toString());
+                    String val = mAuth.getCurrentUser().getUid()
+                            + ":-:"
+                            + ((RadioButton) findViewById(radioGroup2.getCheckedRadioButtonId())).getText().toString();
+                    mRootRef.child("DonatedBy").child(val).setValue(map).addOnCompleteListener(
+                            new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+
+                                    if (task.isSuccessful()) {
+                                        pd.dismiss();
+                                        Toast.makeText(VolunteerHome.this, "Registered to a Drive !", Toast.LENGTH_SHORT).show();
+                                        volunteerDonationDriveReg.setEnabled(false);
+                                        volunteerDonationDriveReg.setBackgroundColor(Color.GRAY);
+
+                                    }
+
+                                }
+                            }
+                    ).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            pd.dismiss();
+                            Snackbar.make(view, e.getMessage(), Snackbar.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(),e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+            }
+        });
+
+        //END OF SETTING UP BUTTONS
     }
 
     @Override
