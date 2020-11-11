@@ -1,4 +1,7 @@
 ## HELPING HANDS - ANDROID
+#### minSdkVersion 26 | targetSdkVersion 30
+
+##
 
 > **Aim**
 
