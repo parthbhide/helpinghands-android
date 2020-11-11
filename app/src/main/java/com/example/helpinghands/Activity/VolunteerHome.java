@@ -34,6 +34,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 public class VolunteerHome extends AppCompatActivity implements View.OnClickListener, ExpandableLayout.OnExpansionUpdateListener{
@@ -48,6 +51,9 @@ public class VolunteerHome extends AppCompatActivity implements View.OnClickList
     private Button volunteerDonationDriveReg;
     private Button volunteerCollectionDriveReg;
 
+//    Date d1 = null, d2 = null;
+//    boolean t1 = false,t2 = false;
+
     ProgressDialog pd;
 
     @Override
@@ -57,10 +63,117 @@ public class VolunteerHome extends AppCompatActivity implements View.OnClickList
         Toolbar toolbar = findViewById(R.id.volunteer_toolbar);
         setSupportActionBar(toolbar);
 
-        //GETTING USER DETAILS FORM FIREBASE
         mAuth = FirebaseAuth.getInstance();
         mRootRef = FirebaseDatabase.getInstance().getReference();
         pd = new ProgressDialog(this);
+
+        volunteerCollectionDriveReg = findViewById(R.id.volunteer_reg_cd);
+        volunteerDonationDriveReg = findViewById(R.id.volunteer_reg_dd);
+
+        //CHECK IF USER IS ALREADY REGISTERED TO AN DRIVE
+        DatabaseReference collectedBy = FirebaseDatabase.getInstance().getReference().child("CollectedBy");
+
+        ValueEventListener collectedByValueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Date today = new Date();
+                today.getTime();
+                for(DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    String userid = ds.child("userid").getValue(String.class);
+                    String date = ds.child("date").getValue(String.class);
+                    if(userid.equals(mAuth.getCurrentUser().getUid()))
+                    {
+                        SimpleDateFormat sd = new SimpleDateFormat("dd-MMM-yyyy");
+                        Date d1 = null;
+                        try {
+                            d1 = sd.parse(date);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if(d1 != null && today.before(d1))
+                        {
+                            new AlertDialog.Builder(VolunteerHome.this)
+                                    .setTitle("Already Registered !")
+                                    .setMessage("You are already registered for a drive on "+date+" !")
+                                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                                    // The dialog is automatically dismissed when a dialog button is clicked.
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    }).setIcon(android.R.drawable.ic_dialog_alert).show();
+
+                            volunteerCollectionDriveReg.setEnabled(false);
+                            volunteerCollectionDriveReg.setBackgroundColor(Color.GRAY);
+                            break;
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        collectedBy.addListenerForSingleValueEvent(collectedByValueEventListener);
+
+        DatabaseReference donatedBy = FirebaseDatabase.getInstance().getReference().child("DonatedBy");
+
+        ValueEventListener donatedByValueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Date today = new Date();
+                today.getTime();
+                for(DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    String userid = ds.child("userid").getValue(String.class);
+                    String date = ds.child("date").getValue(String.class);
+                    if(userid.equals(mAuth.getCurrentUser().getUid()))
+                    {
+                        SimpleDateFormat sd = new SimpleDateFormat("dd-MMM-yyyy");
+                        Date d2 = null;
+                        try {
+                            d2 = sd.parse(date);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if(d2 != null && today.before(d2))
+                        {
+                            new AlertDialog.Builder(VolunteerHome.this)
+                                    .setTitle("Already Registered !")
+                                    .setMessage("You are already registered for a drive on "+date+" !")
+                                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                                    // The dialog is automatically dismissed when a dialog button is clicked.
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    }).setIcon(android.R.drawable.ic_dialog_alert).show();
+
+                            volunteerDonationDriveReg.setEnabled(false);
+                            volunteerDonationDriveReg.setBackgroundColor(Color.GRAY);
+                            break;
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        donatedBy.addListenerForSingleValueEvent(donatedByValueEventListener);
+
+        //END OF CHECK IF USER IS ALREADY REGISTERED TO AN DRIVE
+
+        //GETTING USER DETAILS FORM FIREBASE
 
         DatabaseReference user_reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -134,8 +247,7 @@ public class VolunteerHome extends AppCompatActivity implements View.OnClickList
         TextView collectionDriveDates = (TextView) findViewById(R.id.volunteer_collection_drive_date);
         TextView donationDriveDates = (TextView) findViewById(R.id.volunteer_donation_drive_date);
         ConstraintLayout vcl = findViewById(R.id.volunteer_cl);
-        volunteerCollectionDriveReg = findViewById(R.id.volunteer_reg_cd);
-        volunteerDonationDriveReg = findViewById(R.id.volunteer_reg_dd);
+
 
         collectionDriveDates.setText("Select date to register in collection drive");
         donationDriveDates.setText("Select date to register in donation drive");

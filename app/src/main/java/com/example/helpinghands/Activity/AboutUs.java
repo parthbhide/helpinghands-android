@@ -47,11 +47,11 @@ public class AboutUs extends Fragment {
         "… And much more !");
 
 //        abouttext3.setTypeface(null, Typeface.BOLD);
-        abouttext3.setTextColor(Color.WHITE);
+        abouttext3.setTextColor(Color.BLACK);
 //        abouttext4.setTypeface(null, Typeface.BOLD);
         abouttext4.setTextColor(Color.RED);
 //        abouttext5.setTypeface(null, Typeface.BOLD);
-        abouttext5.setTextColor(Color.WHITE);
+        abouttext5.setTextColor(Color.BLACK);
 //        abouttext6.setTypeface(null, Typeface.BOLD);
         abouttext6.setTextColor(Color.RED);
 

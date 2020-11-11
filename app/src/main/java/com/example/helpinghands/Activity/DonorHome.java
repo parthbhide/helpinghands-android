@@ -37,7 +37,11 @@ import android.widget.Toast;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class DonorHome extends AppCompatActivity implements View.OnClickListener, ExpandableLayout.OnExpansionUpdateListener{
 
@@ -69,6 +73,62 @@ public class DonorHome extends AppCompatActivity implements View.OnClickListener
         mAuth = FirebaseAuth.getInstance();
         mRootRef = FirebaseDatabase.getInstance().getReference();
         pd = new ProgressDialog(this);
+
+        registerForCollectionDrive = findViewById(R.id.reg_for_cd);
+
+        //CHECK IF USER IS ALREADY REGISTERED TO AN DRIVE
+        DatabaseReference donatesItemIn = FirebaseDatabase.getInstance().getReference().child("DonatesItemIn");
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Date today = new Date();
+                today.getTime();
+                for(DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    String userid = ds.child("userid").getValue(String.class);
+                    String date = ds.child("date").getValue(String.class);
+                    if(userid.equals(mAuth.getCurrentUser().getUid()))
+                    {
+                        SimpleDateFormat sd = new SimpleDateFormat("dd-MMM-yyyy");
+                        Date d = null;
+                        try {
+                            d = sd.parse(date);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if(d != null && today.before(d))
+                        {
+                            new AlertDialog.Builder(DonorHome.this)
+                                    .setTitle("Already Registered !")
+                                    .setMessage("You are already registered for a drive on "+date+" !")
+                                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                                    // The dialog is automatically dismissed when a dialog button is clicked.
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    }).setIcon(android.R.drawable.ic_dialog_alert).show();
+
+                            registerForCollectionDrive.setEnabled(false);
+                            registerForCollectionDrive.setBackgroundColor(Color.GRAY);
+                            break;
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        donatesItemIn.addListenerForSingleValueEvent(valueEventListener);
+
+        //END OF CHECK IF USER IS ALREADY REGISTERED TO AN DRIVE
+
 
         DatabaseReference user_reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -149,7 +209,6 @@ public class DonorHome extends AppCompatActivity implements View.OnClickListener
         TextView donateFootwear = (TextView) findViewById(R.id.donate_footwear);
         TextView donateStationary = (TextView) findViewById(R.id.donate_stationary);
         TextView collectionDriveDates = (TextView) findViewById(R.id.donor_collection_drive_date);
-        registerForCollectionDrive = findViewById(R.id.reg_for_cd);
         ConstraintLayout dcl = findViewById(R.id.donor_cl);
 
         donateCloths.setText("Enter details to donate cloths");
@@ -219,20 +278,6 @@ public class DonorHome extends AppCompatActivity implements View.OnClickListener
                                 }
                             }).setIcon(android.R.drawable.ic_dialog_alert).show();
                 }
-//                else if(Integer.valueOf(userEnteredClothsQty) > cloth_qty || Integer.valueOf(userEnteredFootwearQty) > footwear_qty ||
-//                        Integer.valueOf(userEnteredStationaryQty) > stationary_qty)
-//                {
-//                    pd.dismiss();
-//                    new AlertDialog.Builder(DonorHome.this)
-//                            .setTitle("Invalid Quantity !")
-//                            .setMessage("Quantity can't be greater than available quantity !")
-//                            // Specifying a listener allows you to take an action before dismissing the dialog.
-//                            // The dialog is automatically dismissed when a dialog button is clicked.
-//                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                }
-//                            }).setIcon(android.R.drawable.ic_dialog_alert).show();
-//                }
 
                 else if(radioGroup.getCheckedRadioButtonId() != R.id.date1 && radioGroup.getCheckedRadioButtonId() != R.id.date2  &&
                         radioGroup.getCheckedRadioButtonId() != R.id.date3 )

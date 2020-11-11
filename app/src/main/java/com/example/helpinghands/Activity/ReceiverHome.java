@@ -34,6 +34,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 public class ReceiverHome extends AppCompatActivity implements View.OnClickListener, ExpandableLayout.OnExpansionUpdateListener{
@@ -60,6 +63,61 @@ public class ReceiverHome extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_receiver_home);
         Toolbar toolbar = findViewById(R.id.receiver_toolbar);
         setSupportActionBar(toolbar);
+
+        registerForDonationDrive = findViewById(R.id.reg_for_dd);
+
+        //CHECK IF USER IS ALREADY REGISTERED TO AN DRIVE
+        DatabaseReference donatesItemIn = FirebaseDatabase.getInstance().getReference().child("ReceivesItemIn");
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Date today = new Date();
+                today.getTime();
+                for(DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    String userid = ds.child("userid").getValue(String.class);
+                    String date = ds.child("date").getValue(String.class);
+                    if(userid.equals(mAuth.getCurrentUser().getUid()))
+                    {
+                        SimpleDateFormat sd = new SimpleDateFormat("dd-MMM-yyyy");
+                        Date d = null;
+                        try {
+                            d = sd.parse(date);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if(d != null && today.before(d))
+                        {
+                            new AlertDialog.Builder(ReceiverHome.this)
+                                    .setTitle("Already Registered !")
+                                    .setMessage("You are already registered for a drive on "+date+" !")
+                                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                                    // The dialog is automatically dismissed when a dialog button is clicked.
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    }).setIcon(android.R.drawable.ic_dialog_alert).show();
+
+                            registerForDonationDrive.setEnabled(false);
+                            registerForDonationDrive.setBackgroundColor(Color.GRAY);
+                            break;
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        donatesItemIn.addListenerForSingleValueEvent(valueEventListener);
+
+        //END OF CHECK IF USER IS ALREADY REGISTERED TO AN DRIVE
 
         //GETTING USER DETAILS FORM FIREBASE
         mAuth = FirebaseAuth.getInstance();
